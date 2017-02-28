@@ -55,7 +55,7 @@ namespace Unity_Decoupler
         GameObject Link(string gameObjectName);
 
         /*
-            Spawn a new object into the scene
+            Spawn a new instance of a prefab into the scene
 
             This methode takes a gameobject from the local prefab list and instantiate's it 
             into the scene.
