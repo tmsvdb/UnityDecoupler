@@ -101,21 +101,56 @@ namespace Unity_Decoupler
 
         /*
             Get a spawned object from the scene
+
+            @param instanceName:
+                name of the spawn, that has been stored within the local spawn list, you 
+                are trying to get.
+
+            @returns:
+                the requested game object from the local spaw list.
+            
+            @returns:
+                NULL if the spawn with the requested name was not found!
         */
         GameObject GetSpawn(string instanceName);
 
         /*
             Get a prefab from the local prefab list
+
+            @param prefabName:
+                the name of the game object (gameobject.name), that has been stored within the 
+                local prefab list, you are trying to get.
+            
+            @returns:
+                the requested prefab game object from the local prefab list.
+            
+            @returns:
+                NULL if the prefab with the requested name was not found!
         */
         GameObject GetPrefab(string prefabName);
 
         /*
             Remove a prefab from the scene
+
+            @param instanceName:
+                the name of the previously spawned instance that needs to be removed.
+                if this instance does not exist in the local spawn list, nothing will happen.
         */
         void Remove(string name);
 
         /*
             Load a prefab from recources into local prefab list
+
+            @param path:
+                path name within the resources folder see unity's documentation on
+                Resources.Load
+            
+            @returns:
+                the newly loaded game object fetched from the resources folder.
+
+            @returns:
+                if a prefab allready exists within the local prefab list, this existing
+                game object will be returned and the load process will be skipped!
         */
         GameObject LoadPrefab(string path);
     }
@@ -202,8 +237,12 @@ namespace Unity_Decoupler
         public void Remove(string name)
         {
             GameObject go = GetSpawn(name);
-            Destroy(go);
-            spawnList.Remove(name);
+
+            if (go != null)
+            {
+                Destroy(go);
+                spawnList.Remove(name);
+            }
         }
 
         public GameObject LoadPrefab(string path)
